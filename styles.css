@@ -57,5 +57,8 @@ footer {
     font-weight: bold;
     opacity: 0; /* 初始不可见 */
     animation: fadeInUp 1.5s ease-out forwards; /* 1.5秒动画，淡入并上移 */
+    animation: fadeInUp 1.5s ease-out forwards;
+    animation-delay: 0.5s; /* 延迟 0.5 秒后开始动画 */
+
 }
 
