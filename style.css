@@ -35,9 +35,9 @@ nav ul li a {
 }
 
 nav ul li img.logo {
-    width: 50px;  /* 适当调整Logo的大小 */
-    height: auto;
-    margin-right: 20px;
+    width: 40px;  /* 调整Logo宽度为40px，适当缩小 */
+    height: auto; /* 保持图片比例 */
+    margin-right: 15px; /* 调整Logo和文本之间的间距 */
 }
 
 main {
