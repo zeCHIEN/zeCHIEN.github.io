@@ -39,55 +39,23 @@ footer {
     bottom: 0;
     width: 100%;
 }
-
-/* 设置全局背景 */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-image: url('assets/images/IMG_1464(20250208-131732).jpg'); /* 替换为你的图片路径 */
-    background-size: cover; /* 背景图片覆盖整个页面 */
-    background-position: center; /* 背景居中 */
-    color: #fff; /* 确保文字能与背景对比 */
-    text-align: center;
+/* 文字浮出动画 */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px); /* 从下方30px位置开始 */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-header {
-    background: rgba(0, 0, 0, 0.7); /* 半透明的背景，用来让导航栏内容更加清晰 */
-    color: white;
-    padding: 10px;
+/* 应用动画到欢迎文字 */
+.welcome-text {
+    font-size: 2em; /* 文字大小 */
+    font-weight: bold;
+    opacity: 0; /* 初始不可见 */
+    animation: fadeInUp 1.5s ease-out forwards; /* 1.5秒动画，淡入并上移 */
 }
-
-nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-nav ul li {
-    display: inline;
-    margin: 0 15px;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-}
-
-main {
-    padding: 20px;
-}
-
-footer {
-    background: rgba(0, 0, 0, 0.7); /* 半透明的背景 */
-    color: white;
-    padding: 10px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0
 
