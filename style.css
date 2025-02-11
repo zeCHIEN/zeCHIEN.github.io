@@ -8,10 +8,14 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     color: #333;
+    background-image: url('IMG_1464(20250208-131732).jpg'); /* 设置背景图片 */
+    background-size: cover; /* 让背景图覆盖整个页面 */
+    background-position: center; /* 背景图居中 */
+    background-attachment: fixed; /* 背景图固定 */
 }
 
 header {
-    background-color: #333;
+    background-color: rgba(51, 51, 51, 0.8); /* 设置背景颜色为半透明，避免背景图干扰文字 */
     color: white;
     padding: 1rem 0;
     text-align: center;
@@ -35,9 +39,9 @@ nav ul li a {
 }
 
 nav ul li img.logo {
-    width: 40px;  /* 调整Logo宽度为40px，适当缩小 */
-    height: auto; /* 保持图片比例 */
-    margin-right: 15px; /* 调整Logo和文本之间的间距 */
+    width: 40px;  /* 调整Logo宽度 */
+    height: auto;
+    margin-right: 15px;
 }
 
 main {
@@ -65,7 +69,7 @@ article h4 {
 
 footer {
     text-align: center;
-    background-color: #333;
+    background-color: rgba(51, 51, 51, 0.8); /* 半透明背景 */
     color: white;
     padding: 1rem;
     margin-top: 2rem;
