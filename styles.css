@@ -1,13 +1,17 @@
+/* 设置全局背景 */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-image: url('assets/images/IMG_1464(20250208-131732).jpg'); /* 替换为你的图片路径 */
+    background-size: cover; /* 背景图片覆盖整个页面 */
+    background-position: center; /* 背景居中 */
+    color: #fff; /* 确保文字能与背景对比 */
     text-align: center;
 }
 
 header {
-    background: #333;
+    background: rgba(0, 0, 0, 0.7); /* 半透明的背景，用来让导航栏内容更加清晰 */
     color: white;
     padding: 10px;
 }
@@ -32,7 +36,7 @@ main {
 }
 
 footer {
-    background: #333;
+    background: rgba(0, 0, 0, 0.7); /* 半透明的背景 */
     color: white;
     padding: 10px;
     position: fixed;
