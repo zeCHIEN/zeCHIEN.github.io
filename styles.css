@@ -39,26 +39,3 @@ footer {
     bottom: 0;
     width: 100%;
 }
-/* 文字浮出动画 */
-@keyframes fadeInUp {
-    0% {
-        opacity: 0;
-        transform: translateY(30px); /* 从下方30px位置开始 */
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* 应用动画到欢迎文字 */
-.welcome-text {
-    font-size: 2em; /* 文字大小 */
-    font-weight: bold;
-    opacity: 0; /* 初始不可见 */
-    animation: fadeInUp 1.5s ease-out forwards; /* 1.5秒动画，淡入并上移 */
-    animation: fadeInUp 1.5s ease-out forwards;
-    animation-delay: 0.5s; /* 延迟 0.5 秒后开始动画 */
-
-}
-
