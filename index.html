@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chien工作室</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('IMG_1464(20250208-131732).PNG') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .container { margin-top: 20px; }
+
+        @keyframes floatIn {
+            0% {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .container h2 {
+            animation: floatIn 1s ease-out;
+            color: white;
+        }
+
+        /* 打字机动画 */
+        @keyframes typing {
+            0% {
+                width: 0;
+                text-shadow: none;
+            }
+            100% {
+                width: 100%;
+                text-shadow: none;
+            }
+        }
+
+        .typing {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            color: white;
+            animation: typing 6s steps(90) 1s 1 normal both; /* 动画时长 6s，steps 90 */
+        }
+
+        /* 自定义导航栏图片 */
+        nav .navbar-brand img {
+            max-width: 200px; /* 适当缩放图片的大小 */
+            height: auto; /* 自适应高度 */
+            display: block;
+            margin: 0 auto; /* 让图片居中 */
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="/mnt/data/chien-studio.PNG" alt="Chien Studio Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link active" href="hackintosh.html">黑苹果</a></li>
+                    <li class="nav-item"><a class="nav-link" href="download.html">资源</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">交流</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h2>欢迎来到Chien Studio</h2>
+        <p class="typing">我是AQea，在黑苹果领域研究了5年左右了，从小白到大白的过程中也积累了很多黑苹果经验。</p>
+        <p class="typing">这五年里，我经历过无数次安装调试，尽全力的先将自己的电脑实现完美黑苹果。</p>
+        <p class="typing">我非常愿意与大家一起分享黑苹果领域的知识，以及我的个人经验。</p>
+        <p class="typing">顶部导航栏可联系到我^-^</p>
+        <p class="typing">我的工作室成立也有两年时间了，主要也是个针对于计算机方面的工作室。</p>
+        <p class="typing">  这是我的个人网站，也是团队与大家的分享站。是专注黑苹果资源的一站式平台。</p>
+                          致力于</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
