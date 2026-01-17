@@ -69,20 +69,23 @@
             return;
         }
 
-        // 将名字传递给祝福页面
-        var blessings = [
-            "愿你每天都有好心情 🌈",
-            "愿你所求皆所愿，所行皆坦途 ✨",
-            "愿你被世界温柔以待 💕",
-            "愿快乐永远围绕着你 😊",
-            "愿你梦想成真，前程似锦 🌟"
-        ];
+        // 如果输入的是 "毕菁格"，跳转到特殊页面
+        if (name === "毕菁格") {
+            window.location.href = "special_blessing.html";
+        } else {
+            var blessings = [
+                "愿你每天都有好心情 🌈",
+                "愿你所求皆所愿，所行皆坦途 ✨",
+                "愿你被世界温柔以待 💕",
+                "愿快乐永远围绕着你 😊",
+                "愿你梦想成真，前程似锦 🌟"
+            ];
 
-        var randomBlessing = blessings[Math.floor(Math.random() * blessings.length)];
+            var randomBlessing = blessings[Math.floor(Math.random() * blessings.length)];
 
-        // 构造 URL 参数传递名字和祝福语
-        var blessingMessage = encodeURIComponent(name + "，" + randomBlessing);
-        window.location.href = "blessing.html?message=" + blessingMessage;
+            var blessingMessage = encodeURIComponent(name + "，" + randomBlessing);
+            window.location.href = "blessing.html?message=" + blessingMessage;
+        }
     }
 </script>
 
