@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>专属祝福 💖 毕菁格</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            font-family: "Microsoft YaHei", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 350px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .blessing {
+            font-size: 18px;
+            color: #ff4f7a;
+            margin-top: 20px;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        button {
+            background: #ff6f91;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 30px;
+        }
+
+        button:hover {
+            background: #ff4f7a;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>🎉 毕菁格，专属祝福</h1>
+    <div class="blessing">
+        愿你在未来的每一天都充满欢笑和阳光！🌞💖
+    </div>
+
+    <!-- 照片 -->
+    <img src="你的照片链接.jpg" alt="毕菁格的照片">
+
+    <!-- 音频 -->
+    <audio controls>
+        <source src="你的音频链接.mp3" type="audio/mpeg">
+        你的浏览器不支持音频播放。
+    </audio>
+
+    <button onclick="goBack()">返回</button>
+</div>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+</body>
+</html>
