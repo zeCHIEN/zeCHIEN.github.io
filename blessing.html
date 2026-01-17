@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>你的祝福 💖</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            font-family: "Microsoft YaHei", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .blessing {
+            font-size: 18px;
+            color: #ff4f7a;
+            margin-top: 20px;
+        }
+
+        button {
+            background: #ff6f91;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 30px;
+        }
+
+        button:hover {
+            background: #ff4f7a;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>🎁 你的专属祝福</h1>
+    <div class="blessing" id="blessingMessage"></div>
+    <button onclick="goBack()">返回</button>
+</div>
+
+<script>
+    function getQueryParam(name) {
+        var urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+    function goBack() {
+        window.history.back();
+    }
+
+    // 获取祝福语并显示
+    var blessingMessage = getQueryParam("message");
+    if (blessingMessage) {
+        document.getElementById("blessingMessage").innerText = decodeURIComponent(blessingMessage);
+    }
+</script>
+
+</body>
+</html>
