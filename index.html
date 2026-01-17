@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>送给你的祝福 💖</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            font-family: "Microsoft YaHei", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
+        }
+
+        button {
+            background: #ff6f91;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #ff4f7a;
+        }
+
+        .blessing {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #ff4f7a;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>🎁 祝福送给你</h1>
+    <input type="text" id="nameInput" placeholder="请输入你的名字">
+    <br>
+    <button onclick="sendBlessing()">点我接收祝福</button>
+
+    <div class="blessing" id="blessingText"></div>
+</div>
+
+<script>
+    function sendBlessing() {
+        var name = document.getElementById("nameInput").value;
+
+        if (name.trim() === "") {
+            alert("请先输入名字哦～");
+            return;
+        }
+
+        var blessings = [
+            "愿你每天都有好心情 🌈",
+            "愿你所求皆所愿，所行皆坦途 ✨",
+            "愿你被世界温柔以待 💕",
+            "愿快乐永远围绕着你 😊",
+            "愿你梦想成真，前程似锦 🌟"
+        ];
+
+        var randomBlessing = blessings[Math.floor(Math.random() * blessings.length)];
+
+        var text = name + "，" + randomBlessing;
+
+        var blessingDiv = document.getElementById("blessingText");
+        blessingDiv.innerText = text;
+        blessingDiv.style.display = "block";
+    }
+</script>
+
+</body>
+</html>
