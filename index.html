@@ -49,13 +49,6 @@
         button:hover {
             background: #ff4f7a;
         }
-
-        .blessing {
-            margin-top: 20px;
-            font-size: 18px;
-            color: #ff4f7a;
-            display: none;
-        }
     </style>
 </head>
 <body>
@@ -64,13 +57,11 @@
     <h1>🎁 祝福送给你</h1>
     <input type="text" id="nameInput" placeholder="请输入你的名字">
     <br>
-    <button onclick="sendBlessing()">点我接收祝福</button>
-
-    <div class="blessing" id="blessingText"></div>
+    <button onclick="goToBlessingPage()">点我接收祝福</button>
 </div>
 
 <script>
-    function sendBlessing() {
+    function goToBlessingPage() {
         var name = document.getElementById("nameInput").value;
 
         if (name.trim() === "") {
@@ -78,6 +69,7 @@
             return;
         }
 
+        // 将名字传递给祝福页面
         var blessings = [
             "愿你每天都有好心情 🌈",
             "愿你所求皆所愿，所行皆坦途 ✨",
@@ -88,11 +80,9 @@
 
         var randomBlessing = blessings[Math.floor(Math.random() * blessings.length)];
 
-        var text = name + "，" + randomBlessing;
-
-        var blessingDiv = document.getElementById("blessingText");
-        blessingDiv.innerText = text;
-        blessingDiv.style.display = "block";
+        // 构造 URL 参数传递名字和祝福语
+        var blessingMessage = encodeURIComponent(name + "，" + randomBlessing);
+        window.location.href = "blessing.html?message=" + blessingMessage;
     }
 </script>
 
