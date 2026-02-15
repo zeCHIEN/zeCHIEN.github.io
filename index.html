@@ -1,92 +1,131 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <title>送给你的祝福 💖</title>
-    <style>
-        body {
-            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-            font-family: "Microsoft YaHei", sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            width: 300px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        input {
-            width: 90%;
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            margin-bottom: 15px;
-        }
-
-        button {
-            background: #ff6f91;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #ff4f7a;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>专属祝福入口 💖</title>
+<style>
+body{
+    margin:0;
+    overflow:hidden;
+    font-family:"Microsoft YaHei";
+    background:black;
+}
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+}
+.card{
+    position:relative;
+    z-index:2;
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    text-align:center;
+    width:350px;
+    margin:auto;
+    top:50%;
+    transform:translateY(-50%);
+}
+input{
+    width:90%;
+    padding:12px;
+    border-radius:10px;
+    border:1px solid #ccc;
+    margin:20px 0;
+}
+button{
+    background:#ff2e63;
+    color:white;
+    border:none;
+    padding:12px 25px;
+    border-radius:10px;
+    cursor:pointer;
+}
+</style>
 </head>
 <body>
 
+<canvas id="fireworks"></canvas>
+
 <div class="card">
-    <h1>🎁 祝福送给你</h1>
-    <input type="text" id="nameInput" placeholder="请输入你的名字">
-    <br>
-    <button onclick="goToBlessingPage()">点我接收祝福</button>
+<h2>🎆 输入名字查看专属祝福</h2>
+<input type="text" id="nameInput" placeholder="请输入名字">
+<br>
+<button onclick="go()">进入</button>
 </div>
 
 <script>
-    function goToBlessingPage() {
-        var name = document.getElementById("nameInput").value;
-
-        if (name.trim() === "") {
-            alert("请先输入名字哦～");
-            return;
-        }
-
-        // 如果输入的是 "毕菁格"，跳转到特殊页面
-        if (name === "毕菁格") {
-            window.location.href = "special_blessing.html";
-        } else {
-            var blessings = [
-                "愿你每天都有好心情 🌈",
-                "愿你所求皆所愿，所行皆坦途 ✨",
-                "愿你被世界温柔以待 💕",
-                "愿快乐永远围绕着你 😊",
-                "愿你梦想成真，前程似锦 🌟"
-            ];
-
-            var randomBlessing = blessings[Math.floor(Math.random() * blessings.length)];
-
-            var blessingMessage = encodeURIComponent(name + "，" + randomBlessing);
-            window.location.href = "blessing.html?message=" + blessingMessage;
-        }
+// 页面跳转逻辑
+function go(){
+    var name=document.getElementById("nameInput").value.trim();
+    var pages={
+        "毕菁格":"bijingge.html",
+        "臧佳男":"zangjianan.html",
+        "王浩宇":"wanghaoyu.html",
+        "田仁杰":"tianrenjie.html",
+        "赵子栋":"zhaozidong.html",
+        "唐帅兴":"tangshuaixing.html",
+        "李浩宇":"lihaoyu.html",
+        "李昊阳":"lihaoyang.html",
+        "陈子睿":"chenzirui.html",
+        "郝彦哲":"haoyanzhe.html",
+        "王小暖":"wangxiaonuan.html",
+        "韩依璇":"hanyixuan.html"
+    };
+    if(pages[name]){
+        window.location.href=pages[name];
+    }else{
+        window.location.href="blessing.html?name="+encodeURIComponent(name);
     }
+}
+</script>
+
+<script>
+// 烟花特效
+var canvas=document.getElementById("fireworks");
+var ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+var particles=[];
+
+function createFirework(){
+    var x=Math.random()*canvas.width;
+    var y=Math.random()*canvas.height/2;
+    for(var i=0;i<80;i++){
+        particles.push({
+            x:x,
+            y:y,
+            angle:Math.random()*2*Math.PI,
+            speed:Math.random()*5+2,
+            radius:2,
+            alpha:1,
+            color:"hsl("+Math.random()*360+",100%,50%)"
+        });
+    }
+}
+
+function animate(){
+    ctx.fillStyle="rgba(0,0,0,0.2)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    particles.forEach((p,index)=>{
+        p.x+=Math.cos(p.angle)*p.speed;
+        p.y+=Math.sin(p.angle)*p.speed;
+        p.alpha-=0.02;
+        ctx.globalAlpha=p.alpha;
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.radius,0,2*Math.PI);
+        ctx.fillStyle=p.color;
+        ctx.fill();
+        if(p.alpha<=0) particles.splice(index,1);
+    });
+    ctx.globalAlpha=1;
+    requestAnimationFrame(animate);
+}
+
+setInterval(createFirework,800);
+animate();
 </script>
 
 </body>
