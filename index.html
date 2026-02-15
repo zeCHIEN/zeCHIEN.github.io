@@ -1,73 +1,262 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>输入名字</title>
+<title>专属祝福网站</title>
 
 <style>
-*{box-sizing:border-box;}
-
-body{
-    margin:0;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
-    font-family:"Microsoft YaHei",sans-serif;
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    font-family: "Microsoft YaHei";
+    overflow: hidden;
+    position: relative;
 }
 
-.container{
-    background:white;
-    padding:40px 30px;
-    border-radius:20px;
-    width:90%;
-    max-width:400px;
-    text-align:center;
-    box-shadow:0 20px 40px rgba(0,0,0,0.2);
+.card {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    text-align: center;
+    width: 400px;
+    z-index: 10;
+    position: relative;
 }
 
-input{
-    width:100%;
-    padding:12px;
-    margin-top:20px;
-    border-radius:10px;
-    border:1px solid #ccc;
+h1 {
+    color: #ff4b7d;
 }
 
-button{
-    width:100%;
-    margin-top:20px;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    font-size:16px;
-    background:#ff2e63;
-    color:white;
-    cursor:pointer;
+input {
+    width: 80%;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 20px;
+    background: #ff4b7d;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #ff1f5a;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #333;
+    min-height: 60px;
+    transition: 0.3s;
+    word-break: break-word;
+}
+
+.fade {
+    animation: fadeIn 0.8s;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(10px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+/* 飘心动画 */
+.heart {
+    position: absolute;
+    font-size: 24px;
+    animation: floatUp 4s linear forwards;
+    pointer-events: none;
+    z-index: 5;
+}
+@keyframes floatUp {
+    0% {opacity: 1; transform: translateY(0) rotate(0deg);}
+    100% {opacity: 0; transform: translateY(-600px) rotate(360deg);}
+}
+
+/* 烟花容器 */
+#fireworksCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
 }
 </style>
 </head>
-
 <body>
 
-<div class="container">
-    <h2>🎉 请输入你的名字</h2>
-    <input type="text" id="nameInput" placeholder="输入名字...">
-    <button onclick="goNext()">进入祝福页面</button>
+<div class="card">
+    <h1>输入你的名字 💖</h1>
+    <input type="text" id="nameInput" placeholder="请输入名字">
+    <br>
+    <button onclick="showBlessing()">查看祝福</button>
+    <div id="result"></div>
 </div>
 
+<canvas id="fireworksCanvas"></canvas>
+
 <script>
-function goNext(){
-    var name=document.getElementById("nameInput").value.trim();
-    if(name===""){
-        alert("请输入名字");
+// 飘心动画
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.color = `hsl(${Math.random()*360}, 100%, 70%)`;
+    heart.innerHTML = "💖";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 4000);
+}
+setInterval(createHeart, 500);
+
+// GitHub原来的祝福功能
+function showBlessing() {
+    let name = document.getElementById("nameInput").value.trim();
+    let result = document.getElementById("result");
+
+    if(name === "") {
+        result.innerHTML = "请输入名字哦～";
+        result.className = "fade";
         return;
     }
-    window.location.href="bless.html?name="+encodeURIComponent(name);
-}
-</script>
 
+    // 定义专属祝福
+    const blessings = {
+        "毕菁格":"嗯，对...毕菁格，之前的事情就让他过去吧，祝你新年快乐，高考考上自己心仪的大学",
+        "臧佳男":"佳男，谢谢你这半年来对我们的付出，每次放学走看到数学办公室亮着灯都是你在加班，放假还给我我们买奶茶，真的太感动了QAQ...，在这也祝你新年快乐，事业顺利！。",
+        "王浩宇":"浩宇，祝愿你早日和spy谈上，也祝你学习更上一层楼，越来越帅，将来升学宴你别忘了我哦。新年快乐！",
+        "田仁杰":"仁杰，六中校草祝你以后越来越好，学有所成，越来越帅。也祝你能考上心仪的大学，新年快乐！",
+        "赵子栋":"我操你妈！",
+        "唐帅兴":"帅气不减，梦想不灭。26班欧文，祝你投篮越来越准，成绩越来越牛逼。在这也祝你新年快乐！",
+        "李浩宇":"文班亚马，祝你越来越有球，新年快乐！。",
+        "李昊阳":"26班点烟王，26班第一杆，26班欧文，祝你学习越来越好，和小窦99。新年快乐！",
+        "陈子睿":"乔丹，祝你越来越美式。新年快乐！",
+        "郝彦哲":"master，感谢你帮助我！祝你和五子棋99。新年快乐！",
+        "王小暖":"同桌，没啥好说的祝你越来越好，和主唱99。新年快乐！",
+        "韩依璇":"祝你学有所成，新年快乐！。",
+        "张裕峰":"嗯，怎么说呢。从我第一次看你直播就粉上你了，一直从来没变过，真的希望你越来越好，你也知道我真的很喜欢你，虽然最近有架子了，但是我依旧爱你，新年快乐吧！"  
+    };
+
+    let message = blessings[name] || `💝 ${name}，愿你被世界温柔以待，所遇皆美好！`;
+
+    result.innerHTML = message;
+    result.className = "fade";
+
+    launchFireworks(); // 触发烟花
+}
+
+// 烟花效果
+const canvas = document.getElementById("fireworksCanvas");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let fireworks = [];
+let particles = [];
+
+function random(min, max) { return Math.random()*(max-min)+min; }
+
+class Firework {
+    constructor(x, y) {
+        this.x = canvas.width/2;
+        this.y = canvas.height;
+        this.targetX = x;
+        this.targetY = y;
+        this.distanceTraveled = 0;
+        this.distanceToTarget = Math.hypot(this.targetX - this.x, this.targetY - this.y);
+        this.angle = Math.atan2(this.targetY - this.y, this.targetX - this.x);
+        this.speed = 8;
+    }
+    update() {
+        let vx = Math.cos(this.angle)*this.speed;
+        let vy = Math.sin(this.angle)*this.speed;
+        this.x += vx;
+        this.y += vy;
+        this.distanceTraveled += Math.hypot(vx, vy);
+        if(this.distanceTraveled >= this.distanceToTarget) {
+            explode(this.targetX, this.targetY);
+            return true;
+        }
+        return false;
+    }
+    draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 2, 0, Math.PI*2);
+        ctx.fillStyle = "white";
+        ctx.fill();
+    }
+}
+
+class Particle {
+    constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.speed = random(2,6);
+        this.angle = random(0, Math.PI*2);
+        this.alpha = 1;
+        this.friction = 0.95;
+    }
+    update() {
+        this.x += Math.cos(this.angle)*this.speed;
+        this.y += Math.sin(this.angle)*this.speed;
+        this.speed *= this.friction;
+        this.alpha -= 0.02;
+    }
+    draw() {
+        ctx.beginPath();
+        ctx.arc(this.x,this.y,2,0,Math.PI*2);
+        ctx.fillStyle = `rgba(${this.color},${this.alpha})`;
+        ctx.fill();
+    }
+}
+
+function explode(x,y){
+    let colors = ["255,0,0","0,255,0","0,0,255","255,255,0","255,0,255"];
+    for(let i=0;i<30;i++){
+        particles.push(new Particle(x,y,colors[Math.floor(Math.random()*colors.length)]));
+    }
+}
+
+function launchFireworks(){
+    fireworks.push(new Firework(random(100, canvas.width-100), random(100, canvas.height/2)));
+}
+
+function animate(){
+    ctx.fillStyle = "rgba(0,0,0,0.2)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    for(let i=fireworks.length-1;i>=0;i--){
+        if(fireworks[i].update()) fireworks.splice(i,1);
+        else fireworks[i].draw();
+    }
+
+    for(let i=particles.length-1;i>=0;i--){
+        particles[i].update();
+        if(particles[i].alpha<=0) particles.splice(i,1);
+        else particles[i].draw();
+    }
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+</script>
 </body>
 </html>
