@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>专属祝福</title>
+
+<style>
+*{box-sizing:border-box;}
+
+body{
+    margin:0;
+    overflow:hidden;
+    font-family:"Microsoft YaHei",sans-serif;
+    background:black;
+}
+
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+}
+
+.card{
+    position:relative;
+    z-index:2;
+    width:90%;
+    max-width:450px;
+    margin:auto;
+    top:50%;
+    transform:translateY(-50%);
+    background:white;
+    padding:40px 30px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 20px 50px rgba(0,0,0,0.5);
+}
+
+h2{
+    margin-top:0;
+}
+
+button{
+    margin-top:25px;
+    padding:10px 20px;
+    border:none;
+    border-radius:10px;
+    background:#ff2e63;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="fireworks"></canvas>
+
+<div class="card">
+    <h2 id="title"></h2>
+    <p id="content"></p>
+    <button onclick="window.location.href='index.html'">返回</button>
+</div>
+
+<script>
+
+/* ===== 读取名字 ===== */
+var params=new URLSearchParams(window.location.search);
+var name=params.get("name")||"朋友";
+
+/* ===== 专属祝福数据库 ===== */
+var messages={
+
+"毕菁格":"嗯，对...毕菁格，之前的事情就让他过去吧，祝你新年快乐，高考考上自己心仪的大学",
+
+"臧佳男":"佳男，谢谢你这半年来对我们的付出，每次放学走看到数学办公室亮着灯都是你在加班，放假2还给我我们买奶茶，真的太感动了QAQ...，在这也祝你新年快乐，事业顺利！。",
+
+"王浩宇":"浩宇，祝愿你早日和spy谈上，也祝你学习更上一层楼，越来越帅，将来升学宴你别忘了我哦。新年快乐！",
+
+"田仁杰":"仁杰，六中校草祝你以后越来越好，学有所成，越来越帅。也祝你能考上心仪的大学，新年快乐！",
+
+"赵子栋":"我操你妈！",
+
+"唐帅兴":"帅气不减，梦想不灭。26班欧文，祝你投篮越来越准，成绩越来越牛逼。在这也祝你新年快乐！",
+
+"李浩宇":"文班亚马，祝你越来越有球，新年快乐！。",
+
+"李昊阳":"26班点烟王，26班第一杆，26班欧文，祝你学习越来越好，和小窦99。新年快乐！",
+
+"陈子睿":"乔丹，祝你越来越美式。新年快乐！",
+
+"郝彦哲":"master，感谢你帮助我！祝你和五子棋99。新年快乐！",
+
+"王小暖":"同桌，没啥好说的祝你越来越好，和主唱99。新年快乐！",
+
+"韩依璇":"祝你学有所成，新年快乐！。"
+
+"张裕峰":"嗯，怎么说呢。从我第一次看你直播就粉上你了，一直从来没变过，真的希望你越来越好，你也知道我真的很喜欢你，虽然最近有架子了，但是我依旧爱你，新年快乐吧！"  
+};
+
+/* ===== 设置内容 ===== */
+document.getElementById("title").innerText=name+" 的专属祝福 🎉";
+
+if(messages[name]){
+    document.getElementById("content").innerText=messages[name];
+}else{
+    document.getElementById("content").innerText=
+    "愿你未来光芒万丈 ✨\n所行皆坦途\n所遇皆美好";
+}
+
+/* ===== 烟花特效 ===== */
+
+var canvas=document.getElementById("fireworks");
+var ctx=canvas.getContext("2d");
+
+function resize(){
+    canvas.width=window.innerWidth;
+    canvas.height=window.innerHeight;
+}
+resize();
+window.addEventListener("resize",resize);
+
+var particles=[];
+
+function createFirework(){
+    var x=Math.random()*canvas.width;
+    var y=Math.random()*canvas.height/2;
+
+    for(var i=0;i<80;i++){
+        particles.push({
+            x:x,
+            y:y,
+            angle:Math.random()*2*Math.PI,
+            speed:Math.random()*5+2,
+            alpha:1,
+            color:"hsl("+Math.random()*360+",100%,50%)"
+        });
+    }
+}
+
+function animate(){
+    ctx.fillStyle="rgba(0,0,0,0.2)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    particles.forEach((p,index)=>{
+        p.x+=Math.cos(p.angle)*p.speed;
+        p.y+=Math.sin(p.angle)*p.speed;
+        p.alpha-=0.02;
+
+        ctx.globalAlpha=p.alpha;
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,2,0,2*Math.PI);
+        ctx.fillStyle=p.color;
+        ctx.fill();
+
+        if(p.alpha<=0){
+            particles.splice(index,1);
+        }
+    });
+
+    ctx.globalAlpha=1;
+    requestAnimationFrame(animate);
+}
+
+setInterval(createFirework,900);
+animate();
+
+</script>
+
+</body>
+</html>
