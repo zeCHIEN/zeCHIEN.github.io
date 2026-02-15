@@ -2,130 +2,71 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>专属祝福入口 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>输入名字</title>
+
 <style>
+*{box-sizing:border-box;}
+
 body{
     margin:0;
-    overflow:hidden;
-    font-family:"Microsoft YaHei";
-    background:black;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+    font-family:"Microsoft YaHei",sans-serif;
 }
-canvas{
-    position:fixed;
-    top:0;
-    left:0;
-}
-.card{
-    position:relative;
-    z-index:2;
+
+.container{
     background:white;
-    padding:40px;
+    padding:40px 30px;
     border-radius:20px;
-    text-align:center;
-    width:350px;
-    margin:auto;
-    top:50%;
-    transform:translateY(-50%);
-}
-input{
     width:90%;
+    max-width:400px;
+    text-align:center;
+    box-shadow:0 20px 40px rgba(0,0,0,0.2);
+}
+
+input{
+    width:100%;
     padding:12px;
+    margin-top:20px;
     border-radius:10px;
     border:1px solid #ccc;
-    margin:20px 0;
 }
+
 button{
+    width:100%;
+    margin-top:20px;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    font-size:16px;
     background:#ff2e63;
     color:white;
-    border:none;
-    padding:12px 25px;
-    border-radius:10px;
     cursor:pointer;
 }
 </style>
 </head>
+
 <body>
 
-<canvas id="fireworks"></canvas>
-
-<div class="card">
-<h2>🎆 输入名字查看专属祝福</h2>
-<input type="text" id="nameInput" placeholder="请输入名字">
-<br>
-<button onclick="go()">进入</button>
+<div class="container">
+    <h2>🎉 请输入你的名字</h2>
+    <input type="text" id="nameInput" placeholder="输入名字...">
+    <button onclick="goNext()">进入祝福页面</button>
 </div>
 
 <script>
-// 页面跳转逻辑
-function go(){
+function goNext(){
     var name=document.getElementById("nameInput").value.trim();
-    var pages={
-        "毕菁格":"bijingge.html",
-        "臧佳男":"zangjianan.html",
-        "王浩宇":"wanghaoyu.html",
-        "田仁杰":"tianrenjie.html",
-        "赵子栋":"zhaozidong.html",
-        "唐帅兴":"tangshuaixing.html",
-        "李浩宇":"lihaoyu.html",
-        "李昊阳":"lihaoyang.html",
-        "陈子睿":"chenzirui.html",
-        "郝彦哲":"haoyanzhe.html",
-        "王小暖":"wangxiaonuan.html",
-        "韩依璇":"hanyixuan.html"
-    };
-    if(pages[name]){
-        window.location.href=pages[name];
-    }else{
-        window.location.href="blessing.html?name="+encodeURIComponent(name);
+    if(name===""){
+        alert("请输入名字");
+        return;
     }
+    window.location.href="bless.html?name="+encodeURIComponent(name);
 }
-</script>
-
-<script>
-// 烟花特效
-var canvas=document.getElementById("fireworks");
-var ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-var particles=[];
-
-function createFirework(){
-    var x=Math.random()*canvas.width;
-    var y=Math.random()*canvas.height/2;
-    for(var i=0;i<80;i++){
-        particles.push({
-            x:x,
-            y:y,
-            angle:Math.random()*2*Math.PI,
-            speed:Math.random()*5+2,
-            radius:2,
-            alpha:1,
-            color:"hsl("+Math.random()*360+",100%,50%)"
-        });
-    }
-}
-
-function animate(){
-    ctx.fillStyle="rgba(0,0,0,0.2)";
-    ctx.fillRect(0,0,canvas.width,canvas.height);
-    particles.forEach((p,index)=>{
-        p.x+=Math.cos(p.angle)*p.speed;
-        p.y+=Math.sin(p.angle)*p.speed;
-        p.alpha-=0.02;
-        ctx.globalAlpha=p.alpha;
-        ctx.beginPath();
-        ctx.arc(p.x,p.y,p.radius,0,2*Math.PI);
-        ctx.fillStyle=p.color;
-        ctx.fill();
-        if(p.alpha<=0) particles.splice(index,1);
-    });
-    ctx.globalAlpha=1;
-    requestAnimationFrame(animate);
-}
-
-setInterval(createFirework,800);
-animate();
 </script>
 
 </body>
